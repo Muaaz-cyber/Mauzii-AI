@@ -54,10 +54,10 @@ const TIMEOUT_MS = 25000;
 // Model Configuration
 // ======================
 const MODELS = {
-  // Free tier
-  gemini_flash: 'google/gemini-2.0-flash-lite:free',
-  llama:        'meta-llama/llama-3.1-8b-instruct:free',
-  deepseek:     'deepseek/deepseek-chat:free',
+  // Free tier//
+gemini_flash: 'openrouter/auto',
+llama:        'openrouter/auto',
+deepseek:     'openrouter/auto',
   // Mid tier
   gpt_mini:     'openai/gpt-4o-mini',
   // Top tier
