@@ -17,8 +17,8 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan('dev'));
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
+  origin: '*',
+  credentials: false
 }));
 app.use(express.json({ limit: '1mb' }));
 
