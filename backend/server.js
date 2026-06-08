@@ -66,14 +66,25 @@ deepseek:     'openrouter/auto',
 };
 
 // Human mode to model mapping
-const MODE_TO_MODEL = {
-  fast:     MODELS.gemini_flash,
-  smart:    MODELS.gpt_mini,
-  deep:     MODELS.claude_sonnet,
-  ultra:    null, // handled separately
-  auto:     null, // auto detected
-};
+if (model === 'auto') {
+  const [r1, r2, r3] = await Promise.all([
+    callOpenRouter(MODELS.gemini_flash, messages),
+    callOpenRouter(MODELS.gemini_flash, messages),
+    callOpenRouter(MODELS.gemini_flash, messages),
+  ]);
 
+  const responses = [r1, r2, r3].filter(Boolean);
+
+  const best = responses.sort((a, b) => b.length - a.length)[0];
+
+  const words = best.split(' ');
+  for (const word of words) {
+    res.write(`data: ${JSON.stringify({ token: word + ' ' })}\n\n`);
+  }
+
+  res.write('data: [DONE]\n\n');
+  return res.end();
+}
 // Source display names
 const MODEL_NAMES = {
   [MODELS.gemini_flash]:  'Mauzii AI',
